@@ -239,7 +239,7 @@ class Player extends EventEmitter {
         }
     }
 
-    async autoplay(opt = false, tracks) {
+    async setAutoplay(opt = false, tracks) {
 
             if (!tracks) throw new Error("Missing tracks parameter");
  
