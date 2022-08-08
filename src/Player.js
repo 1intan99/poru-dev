@@ -304,9 +304,7 @@ class Player extends EventEmitter {
                 } else if (this.queue.length > 0) {
                     this.manager.emit("trackEnd", this, this.currentTrack, data)
                     return this.play();
-                }
-
-                if (this.isAutoplay === true) {
+                } else if (this.isAutoplay === true) {
                     this.setAutoplay(this.isAutoplay, this.previousTrack);
                     this.manager.emit("trackEnd", this, this.currentTrack, data);
                     return this.play();
