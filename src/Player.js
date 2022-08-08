@@ -239,8 +239,9 @@ class Player extends EventEmitter {
 
     async autoplay(track) {
 
-        if (!track) return throw "Missing track info";
         try {
+            if (!track) return throw new Error("Missing track info");
+
             let data = `https://www.youtube.com/watch?v=${track.info.identifier}&list=RD${track.info.identifier}`;
 
             let response = await this.manager.resolve(data,this.manager.options.defaultPlatform || "ytsearch");
