@@ -238,9 +238,9 @@ class Player extends EventEmitter {
     }
 
     async autoplay(tracks) {
+            if (!tracks) throw new Error("Missing tracks info");
 
         try {
-            if (!tracks) throw new RangeError("Missing tracks info");
 
             let data = `https://www.youtube.com/watch?v=${tracks.info.identifier}&list=RD${tracks.info.identifier}`;
 
@@ -251,8 +251,6 @@ class Player extends EventEmitter {
             let track = response.tracks[Math.floor(Math.random() * Math.floor(response.tracks.length))];
 
             this.queue.push(track);
-
-            this.play();
 
             return this;
 
