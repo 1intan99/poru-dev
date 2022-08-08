@@ -28,6 +28,8 @@ class Player extends EventEmitter {
         this.isPlaying = false;
 
         this.isPaused = false;
+    
+        this.isAutoplay = false;
 
         this.trackRepeat = false;
 
@@ -44,8 +46,6 @@ class Player extends EventEmitter {
         this.previousTrack = null;
 
         this.voiceUpdateState = null;
-      
-        this.isAutoplay = false;
 
 
 
@@ -304,10 +304,6 @@ class Player extends EventEmitter {
                 } else if (this.queue.length > 0) {
                     this.manager.emit("trackEnd", this, this.currentTrack, data)
                     return this.play();
-                } else if (this.isAutoplay === true) {
-                    this.manager.emit("trackEnd", this, this.currentTrack, data);
-                    this.autoplay(this.isAutoplay, this.currentTrack);
-                    return this.play()
                 }
                 this.manager.emit("queueEnd", this,  this.currentTrack, data);
                 this.destroy();
