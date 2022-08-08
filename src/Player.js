@@ -44,6 +44,8 @@ class Player extends EventEmitter {
         this.previousTrack = null;
 
         this.voiceUpdateState = null;
+      
+        this.isAutoplay = false;
 
 
 
@@ -237,9 +239,10 @@ class Player extends EventEmitter {
         }
     }
 
-    async autoplay(tracks) {
-            if (!tracks) throw new Error("Missing tracks info");
+    async autoplay(opt = false, tracks) {
 
+            if (!tracks) throw new Error("Missing tracks parameter");
+ 
         try {
 
             let data = `https://www.youtube.com/watch?v=${tracks.info.identifier}&list=RD${tracks.info.identifier}`;
@@ -251,6 +254,8 @@ class Player extends EventEmitter {
             let track = response.tracks[Math.floor(Math.random() * Math.floor(response.tracks.length))];
 
             this.queue.push(track);
+
+            this.isAutoplay = true
 
             return this;
 
@@ -299,6 +304,10 @@ class Player extends EventEmitter {
                 } else if (this.queue.length > 0) {
                     this.manager.emit("trackEnd", this, this.currentTrack, data)
                     return this.play();
+                } else if (this.isAutoplay === true) {
+                    this.manager.emit("trackEnd", this, this.currentTrack, data);
+                    this.autoplay(this.currentTrack);
+                    return this.play()
                 }
                 this.manager.emit("queueEnd", this,  this.currentTrack, data);
                 this.destroy();
