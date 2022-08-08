@@ -284,6 +284,12 @@ class Player extends EventEmitter {
 
                 this.previousTrack = this.currentTrack;
 
+                if (this.isAutoplay === true) {
+                    this.setAutoplay(this.isAutoplay, previousTrack);
+                    this.manager.emit("trackEnd", this, this.currentTrack, data);
+                    return this.play();
+                }
+
                 if (this.currentTrack && this.loop === 1) {
 
                     this.queue.unshift(this.previousTrack)
