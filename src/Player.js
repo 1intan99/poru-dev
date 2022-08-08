@@ -240,7 +240,7 @@ class Player extends EventEmitter {
     async autoplay(track) {
 
         try {
-            if (!track) return throw new Error("Missing track info");
+            if (!track) return throw new RangeError("Missing track info");
 
             let data = `https://www.youtube.com/watch?v=${track.info.identifier}&list=RD${track.info.identifier}`;
 
