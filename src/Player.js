@@ -312,7 +312,7 @@ class Player extends EventEmitter {
 
             },
             TrackAutoPlayEvent() {
-                console.log(this.previousTrack)
+              console.log(this.previousTrack)
               this.setAutoplay(this.isAutoplay, this.previousTrack);
               this.manager.emit("autoPlay", this, this.currentTrack, data); 
             },
