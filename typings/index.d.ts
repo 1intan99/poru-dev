@@ -27,7 +27,6 @@ declare module'Poru' {
     public  on(event: 'trackEnd' | 'trackEnd', listener: (player:typeof EventEmitter |any,track:Object,data:Object|any) => void): this
     public  on(event: 'trackStuck' | 'trackError', listener: (player:typeof EventEmitter |any,track:Object,data:Object|any) => void): this
     public  on(event: 'socketClosed', listener: (player:typeof EventEmitter |any,data:Object|any) => void): this
-    public  on(event: 'autoPlay', listener: (player:typeof EventEmitter |any,track:Object,data:Object|any) => void): this
 
 
 
