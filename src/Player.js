@@ -257,7 +257,7 @@ class Player extends EventEmitter {
             this.queue.push(track);
 
             this.isAutoplay = true
-
+            this.manager.emit("autoPlay", this, track, response);
             return this;
 
         } catch (e) {
@@ -312,14 +312,8 @@ class Player extends EventEmitter {
 
             },
             TrackAutoPlayEvent() {
-                if (this.isAutoplay === true) {
-                    this.setAutplay(true, this.previousTrack);
-                    this.manager.emit("autoPlay", (this, this.currentTrack, data));
-                    return this.play();  
-                }
-              this.setAutoplay(false, this.previousTrack);
+              this.setAutoplay(this.isAutoplay, this.previousTrack);
               this.manager.emit("autoPlay", (this, this.currentTrack, data)); 
-              this.play(); 
             },
             TrackStuckEvent() {
                 this.manager.emit("trackError", this,this.currentTrack, data);
