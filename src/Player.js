@@ -240,7 +240,8 @@ class Player extends EventEmitter {
     }
 
     async setAutoplay(opt = false, tracks) {
-
+            
+            if (!opt) return null;
             if (!tracks) throw new Error("Missing tracks parameter");
  
         try {
@@ -311,8 +312,14 @@ class Player extends EventEmitter {
 
             },
             TrackAutoPlayEvent() {
-              this.setAutoplay(this.isAutoplay, this.previousTrack);
-              this.manager.emit("autoPlay", (this, this.currentTrack, data));  
+                if (this.isAutoplay === true) {
+                    this.setAutplay(true, this.previousTrack);
+                    this.manager.emit("autoPlay", (this, this.currentTrack, data));
+                    return this.play();  
+                }
+              this.setAutoplay(false, this.previousTrack);
+              this.manager.emit("autoPlay", (this, this.currentTrack, data)); 
+              this.play(); 
             },
             TrackStuckEvent() {
                 this.manager.emit("trackError", this,this.currentTrack, data);
