@@ -297,17 +297,19 @@ class Player extends EventEmitter {
                     return this.play();
                 }
 
+                if (this.isAutoplay === true) {
+                    console.log("AUTO PLAY")
+                    this.setAutoplay(this.isAutoplay, this.currentTrack);
+                    this.manager.emit("trackEnd", this, this.currentTrack, data);
+                    return this.play();
+                }
+
                 if (this.queue.length === 0) {
                    this.manager.emit("queueEnd",this, this.track, data);
                     return this.destroy();
                     
                 } else if (this.queue.length > 0) {
                     this.manager.emit("trackEnd", this, this.currentTrack, data)
-                    return this.play();
-                } else if (this.isAutoplay === true) {
-                    console.log("AUTO PLAY")
-                    this.setAutoplay(this.isAutoplay, this.currentTrack);
-                    this.manager.emit("trackEnd", this, this.currentTrack, data);
                     return this.play();
                 }
 
