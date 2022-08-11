@@ -30,6 +30,8 @@ class Player extends EventEmitter {
         this.isPaused = false;
     
         this.isAutoplay = false;
+        
+        this.is247 = false;
 
         this.trackRepeat = false;
 
